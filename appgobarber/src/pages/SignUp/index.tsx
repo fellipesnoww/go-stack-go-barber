@@ -5,6 +5,8 @@ import {useNavigation} from "@react-navigation/native";
 import {Form} from '@unform/mobile';
 import {FormHandles, useField} from "@unform/core"
 import * as Yup from "yup";
+import api from '../../services/api';
+
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -45,10 +47,11 @@ const SignUp: React.FC = () => {
               abortEarly: false,
             });
     
-            // await signIn({
-            //   email: data.email,
-            //   password: data.password,
-            // });
+            await api.post('/users', data);
+
+            Alert.alert('Cadastro Realizado com sucesso', 'Você já pode realizar login na aplicação');
+
+            navigation.goBack();
     
             //history.push('/dashboard');
           } catch (err) {
@@ -64,7 +67,7 @@ const SignUp: React.FC = () => {
             
           }
         },
-        []);
+        [navigation]);
 
     return (
         <>
